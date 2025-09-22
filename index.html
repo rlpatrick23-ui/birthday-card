@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Chloe</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Arial', sans-serif;
+    }
+    .card {
+      width: 320px;
+      height: 450px;
+      perspective: 1000px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      cursor: pointer;
+    }
+    .card.open .card-inner {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .card-front {
+      background: url('A_birthday_gift_card_cover.png') no-repeat center/cover;
+    }
+    .card-back {
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      transform: rotateY(180deg);
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 16px;
+    }
+    audio {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="birthdayCard">
+    <div class="card-inner">
+      <div class="card-face card-front"></div>
+      <div class="card-face card-back">
+        <h1>Happy Birthday!</h1>
+        <p>Wishing you a fantastic day and an amazing year ahead.<br/><br/>Love, Ryan</p>
+        <audio id="bg-audio" controls autoplay loop>
+          <source src="nightmare.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('birthdayCard');
+    const audio = document.getElementById('bg-audio');
+
+    // Flip the card on click
+    card.addEventListener('click', () => {
+      card.classList.toggle('open');
+    });
+
+    // Enable music once user interacts
+    document.body.addEventListener('click', () => {
+      audio.muted = false;
+      audio.play().catch(err => console.log("Autoplay blocked:", err));
+    }, { once: true });
+  </script>
+</body>
+</html>
